@@ -51,18 +51,20 @@
     function creerLabyrintheParfait($lab, $seed = null){
         // @param lab : labyrinthe
         // @param seed : graine pour la génération aléatoire (est le temps depuis la création de unix)
+        // @return lab : retourne un tableau à deux dimensions représentant le labyrinthe parfait
         // cette fonction génère un labyrinthe parfait à partir d'un labyrinthe vide et d'une graine
         if($seed != null){
             srand($seed);
         }
         else{
-            srand((int)microtime(true));
+            $seed = (int)microtime(true);
+            srand($seed);
         }
         $longueur = count($lab);
         $largeur = count($lab[0]);
         $nbMur = $longueur * $largeur - 1;
         $nbMurDetruit = 0;
-        while($nbMurDetruit < $nbMur){
+        while($nbMurDetruit <= $nbMur){
             $x = rand(0, $longueur - 1);
             $y = rand(0, $largeur - 1);
             $case = &$lab[$x][$y];
@@ -100,6 +102,7 @@
                 }
             }
         }
+        return ['lab' => $lab, 'seed' => $seed];
     }
 
     function genererDepartArrivee($lab){
@@ -123,15 +126,119 @@
     function creerImageLabyrinthe($lab, $tuiles){
         // @param lab : labyrinthe
         // @param tuiles : tableau contenant les tuiles de l'image
-        // @return img : image du labyrinthe
         // cette fonction génère une image à partir d'un labyrinthe et de tuiles
 
         $largeur = count($lab * imagesx($tuiles[0]));
         $hauteur = count($lab[0] * imagesy($tuiles[0]));
         $img = imagecreate($largeur, $hauteur);
-
-
-        
+        //on parcourt le labyrinthe pour afficher les tuiles
+        for($i = 0; $i < count($lab); $i++){
+            for($j = 0; $j < count($lab[0]); $j++){
+                $case = $lab[$i][$j];
+                $nbTrou = 0;
+                //on recherche le nombre de bord sans mur pour selectionner la bonne tuile
+                if($case['murN'] == 0){
+                    $nbTrou++;
+                }
+                if($case['murS'] == 0){
+                    $nbTrou++;
+                }
+                if($case['murE'] == 0){
+                    $nbTrou++;
+                }
+                if($case['murO'] == 0){
+                    $nbTrou++;
+                }
+                //on selectionne la tuile correspondante
+                if($nbTrou == 1){
+                    $tuile = $tuiles[2];
+                    $numTuile = 2;
+                }
+                else if($nbTrou == 2){
+                    //on a deux cas de figure, un coude ou une ligne
+                    if(($case['murN'] == 0 && $case['murS'] == 0) || ($case['murE'] == 0 && $case['murO'] == 0)){
+                        $tuile = $tuiles[4];
+                        $numTuile = 4;
+                    }
+                    else{
+                        $tuile = $tuiles[1];
+                        $numTuile = 1;
+                    }
+                }
+                else if($nbTrou == 3){
+                    $tuile = $tuiles[3];
+                    $numTuile = 3;
+                }
+                else if($nbTrou == 4){
+                    $tuile = $tuiles[0];
+                    $numTuile = 0;
+                }
+                //on trouve la bonne rotation pour la tuile
+                if($numTuile == 2){
+                    if($case['murN'] == 0){
+                        $rotation = 180;
+                    }
+                    else if($case['murE'] == 0){
+                        $rotation = 270;
+                    }
+                    else if($case['murS'] == 0){
+                        $rotation = 0;
+                    }
+                    else if($case['murO'] == 0){
+                        $rotation = 90;
+                    }
+                }
+                else if($numTuile == 1){
+                    if($case['murN'] == 0){
+                        if($case['murE'] == 0){
+                            $rotation = 180;
+                        }
+                        else if($case['murO'] == 0){
+                            $rotation = 90;
+                        }
+                    }
+                    else if($case['murS'] == 0){
+                        if($case['murE'] == 0){
+                            $rotation = 270;
+                        }
+                        else if($case['murO'] == 0){
+                            $rotation = 0;
+                        }
+                    }
+                }
+                else if($numTuile == 4){
+                    if($case['murN'] == 0 && $case['murS'] == 0){
+                        $rotation = 0;
+                    }
+                    else{
+                        $rotation = 90;
+                    }
+                }
+                else if($numTuile == 3){
+                    if($case['murN'] == 1){
+                        $rotation = 270;
+                    }
+                    else if($case['murE'] == 1){
+                        $rotation = 0;
+                    }
+                    else if($case['murS'] == 1){
+                        $rotation = 90;
+                    }
+                    else if($case['murO'] == 1){
+                        $rotation = 180;
+                    }
+                }
+                else if($numTuile == 0){
+                    $rotation = 0;
+                }
+                //on tourne la tuile
+                $tuile = rotationTuile($tuile, $rotation);
+                //on colle la tuile sur l'image
+                imagecopy($img, $tuile, $i * imagesx($tuile), $j * imagesy($tuile), 0, 0, imagesx($tuile), imagesy($tuile));
+            }
+        }
+        imagepng($img, 'labyrinthe.png');
+        imagedestroy($img);
     }
 
     function afficherLabyrintheresolu($lab, $solution){
@@ -143,8 +250,17 @@
         // @return tuiles : tableau contenant les tuiles de l'image
         // cette fonction sectionne une image en 6 tuiles
 
-        $tuiles = array();ui ready
+        $tuiles = array();
+        $largeur = imagesx($img) / 5;
+        $hauteur = imagesy($img);
+        for($i = 0; $i < 5; $i++){
+            $tuile = imagecreatetruecolor($largeur, $hauteur);
+            imagecopy($tuile, $img, 0, 0, $i * $largeur, 0, $largeur, $hauteur);
+            $tuiles[] = $tuile;
         }
+        return $tuiles;
+    }
+
     
         function rotationTuile($tuile, $rotation){
             // @param tuile : tuile à tourner
