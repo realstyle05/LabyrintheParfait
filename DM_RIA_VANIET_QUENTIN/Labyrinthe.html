@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Labyrinthe</title>
-</head>
-<body style="background-color:lightgrey;">
-    <div id="form">
-        <form method="get" action="traitement.php">;
-            <label for="x">Largeur du labyrinthe : </label>;
-            <input type="number" name="x" id="x" required/>;
-            <br/>';
-            <label for="y">Hauteur du labyrinthe : </label>;
-            <input type="number" name="y" id="y" required/>;
-            <br/>';
-            <input type="submit" value="Generer">Generer Labyrinthe</input>;
-            <br/>';
-            <input type="submit" value="GenererResolu">Generer Labyrinthe Resolu</input>;
-        </form>';
-    </div>
-    <div id="lab">
-    </div>
-    
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Labyrinthe</title>
+    </head>
+    <script type="text/javascript" src="ajax.js"> </script>
+    <script>
+        function hide(){
+            console.log("hide");
+            refForm = document.getElementById("form");
+            refForm.style.display = "none";
+        }
+        
+    </script>
+
+    <body style="background-color:lightgrey;">
+        <div id="form">
+            <form method="get" action="traitement.php">;
+                <label for="x">Largeur du labyrinthe : </label>;
+                <input type="number" name="x" id="x" required/>;
+                <br/>';
+                <label for="y">Hauteur du labyrinthe : </label>;
+                <input type="number" name="y" id="y" required/>;
+                <br/>';
+                <input type="submit" value="Generer" onclick="hide()">Generer Labyrinthe</input>;
+                <br/>';
+                <input type="submit" value="GenererResolu" onclick="hide()">Generer Labyrinthe Resolu</input>;
+            </form>';
+        </div>
+        <div id="lab">
+        </div>
+        
+    </body>
 </html>

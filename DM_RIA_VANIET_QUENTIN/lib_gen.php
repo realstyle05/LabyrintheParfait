@@ -101,9 +101,12 @@
             }
         }
     }
+
     function genererDepartArrivee($lab){
         // @param lab : labyrinthe
         // cette fonction génère une case de départ et une case d'arrivée dans le labyrinthe
+        // Solution temporaire pour avoir une entrée et une sortie
+
         $longueur = count($lab);
         $largeur = count($lab[0]);
         $lab[0][0]['murN'] = 0;
@@ -115,36 +118,42 @@
         
     }
 
-    // Fonctions traitant de l'interface utilisateur
-
-    function envoyerForm(){
-        // cette fonction envoie un formulaire pour demander la taille du labyrinthe
-        echo '<form method="get" action="main.php">';
-        echo '<label for="x">Largeur du labyrinthe : </label>';
-        echo '<input type="number" name="x" id="x" required/>';
-        echo '<br/>';
-        echo '<label for="y">Hauteur du labyrinthe : </label>';
-        echo '<input type="number" name="y" id="y" required/>';
-        echo '<br/>';
-        echo '<input type="submit" value="Generer">Generer Labyrinthe</input>';
-        echo '<br/>';
-        echo '<input type="submit" value="GenererResolu">Generer Labyrinthe Resolu</input>';
-        echo '</form>';
-    }
-
     // Fonctions d'affichage du labyrinthe
 
-    function afficherLabyrinthe($lab){
+    function creerImageLabyrinthe($lab, $tuiles){
+        // @param lab : labyrinthe
+        // @param tuiles : tableau contenant les tuiles de l'image
+        // @return img : image du labyrinthe
+        // cette fonction génère une image à partir d'un labyrinthe et de tuiles
+
+        $largeur = count($lab * imagesx($tuiles[0]));
+        $hauteur = count($lab[0] * imagesy($tuiles[0]));
+        $img = imagecreate($largeur, $hauteur);
+
+
         
     }
 
-    function afficherLabyrintheresolu($lab){
+    function afficherLabyrintheresolu($lab, $solution){
 
     }
 
     function sectionnerTuile($img){
-        
-    }
+        // @param img : image à sectionner
+        // @return tuiles : tableau contenant les tuiles de l'image
+        // cette fonction sectionne une image en 6 tuiles
+
+        $tuiles = array();ui ready
+        }
+    
+        function rotationTuile($tuile, $rotation){
+            // @param tuile : tuile à tourner
+            // @param rotation : angle de rotation
+            // @return tuile : tuile tournée
+            // cette fonction tourne une tuile de l'image
+
+            return imagerotate($tuile, $rotation, 0);
+        }
 
 
 ?>
