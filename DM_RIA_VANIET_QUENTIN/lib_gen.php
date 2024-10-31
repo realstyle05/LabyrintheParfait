@@ -135,20 +135,10 @@
         for($i = 0; $i < count($lab); $i++){
             for($j = 0; $j < count($lab[0]); $j++){
                 $case = $lab[$i][$j];
-                $nbTrou = 0;
-                //on recherche le nombre de bord sans mur pour selectionner la bonne tuile
-                if($case['murN'] == 0){
-                    $nbTrou++;
-                }
-                if($case['murS'] == 0){
-                    $nbTrou++;
-                }
-                if($case['murE'] == 0){
-                    $nbTrou++;
-                }
-                if($case['murO'] == 0){
-                    $nbTrou++;
-                }
+                
+                //on recherche le nombre de bords sans murs de chaque case 
+                //afin de selectionner la bonne tuile
+                $nbTrou = 4 - $case['murN'] - $case['murS'] - $case['murE'] - $case['murO']
                 //on selectionne la tuile correspondante
                 if($nbTrou == 1){
                     $tuile = $tuiles[2];
@@ -156,7 +146,7 @@
                 }
                 else if($nbTrou == 2){
                     //on a deux cas de figure, un coude ou une ligne
-                    if(($case['murN'] == 0 && $case['murS'] == 0) || ($case['murE'] == 0 && $case['murO'] == 0)){
+                    if(($case['murN'] && $case['murS']) || ($case['murE'] && $case['murO'])){
                         $tuile = $tuiles[4];
                         $numTuile = 4;
                     }
@@ -210,21 +200,21 @@
                     if($case['murN'] == 0 && $case['murS'] == 0){
                         $rotation = 0;
                     }
-                    else{
+                    else if ($case['murE'] == 0 && $case['murO'] == 0) {
                         $rotation = 90;
                     }
                 }
                 else if($numTuile == 3){
-                    if($case['murN'] == 1){
+                    if($case['murN']){
                         $rotation = 270;
                     }
-                    else if($case['murE'] == 1){
+                    else if($case['murE']){
                         $rotation = 0;
                     }
-                    else if($case['murS'] == 1){
+                    else if($case['murS']){
                         $rotation = 90;
                     }
-                    else if($case['murO'] == 1){
+                    else if($case['murO']){
                         $rotation = 180;
                     }
                 }
@@ -256,7 +246,7 @@
         for($i = 0; $i < 5; $i++){
             $tuile = imagecreatetruecolor($largeur, $hauteur);
             imagecopy($tuile, $img, 0, 0, $i * $largeur, 0, $largeur, $hauteur);
-            $tuiles[] = $tuile;
+            $tuiles[$i] = $tuile;
         }
         return $tuiles;
     }
