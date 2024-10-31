@@ -39,10 +39,7 @@
 
         $labyrinthe = array();
         $compteur = 0;
-        for($i = 0; $i < $x; $i++){
-            for($j = 0; $j < $y; $j++){
-                $labyrinthe[$i][$j] = genererCase($compteur);
-                $compteur++;
+        for($i = 0; $i < $xstyle="background-color:lightgrey;";
             }
         }
         return $labyrinthe;
@@ -56,11 +53,7 @@
             srand($seed);
         }
         else{
-            srand((int)microtime(true));
-        }
-        $longueur = count($lab);
-        $largeur = count($lab[0]);
-        $nbMur = $longueur * $largeur - 1;
+            srand((intstyle="background-color:lightgrey;"ueur * $largeur - 1;
         $nbMurDetruit = 0;
         while($nbMurDetruit < $nbMur){
             $x = rand(0, $longueur - 1);
