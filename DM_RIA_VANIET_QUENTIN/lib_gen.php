@@ -22,10 +22,10 @@
         // @param comp2 : composante 2
         // cette fonction fusionne deux composantes du labyrinthe en une seule
 
-        foreach($lab as &$ligne){
-            foreach($ligne as &$case){
-                if($case['composante'] == $comp2){
-                    $case['composante'] = $comp1;
+        for($i = 0; $i < count($lab); $i++){
+            for($j = 0; $j < count($lab[0]); $j++){
+                if($lab[$i][$j]['composante'] == $comp2){
+                    $lab[$i][$j]['composante'] = $comp1;
                 }
             }
         }
@@ -72,40 +72,53 @@
             if($direction == 0 && $x > 0){
                 $case2 = &$lab[$x - 1][$y];
                 if($case['composante'] != $case2['composante']){
+                    echo '<p>' . $case['composante'] . ' ' . $case2['composante'] . '</p>';
                     $case['murN'] = 0;
                     $lab[$x - 1][$y]['murS'] = 0;
+                    echo '<p> MurN' . $case['id'] . ' ' . $case2['id'] . '</p>'; 
                     fusionnerComposantes($lab, $case['composante'], $case2['composante']);
+                    echo '<p>' . $case['composante'] . ' ' . $case2['composante'] . '</p>';
                     $nbMurDetruit++;
                 }
             }
             else if($direction == 1 && $x < $longueur - 1){
                 $case2 = &$lab[$x + 1][$y];
                 if($case['composante'] != $case2['composante']){
+                    echo '<p>' . $case['composante'] . ' ' . $case2['composante'] . '</p>';
                     $case['murS'] = 0;
                     $lab[$x + 1][$y]['murN'] = 0;
+                    echo '<p> MurS' . $case['id'] . ' ' . $case2['id'] . '</p>';
                     fusionnerComposantes($lab, $case['composante'], $case2['composante']);
+                    echo '<p>' . $case['composante'] . ' ' . $case2['composante'] . '</p>';
                     $nbMurDetruit++;
                 }
             }
             else if($direction == 2 && $y < $largeur - 1){
                 $case2 = &$lab[$x][$y + 1];
                 if($case['composante'] != $case2['composante']){
+                    echo '<p>' . $case['composante'] . ' ' . $case2['composante'] . '</p>';
                     $case['murE'] = 0;
                     $lab[$x][$y + 1]['murO'] = 0;
+                    echo '<p> MurE' . $case['id'] . ' ' . $case2['id'] . '</p>';
                     fusionnerComposantes($lab, $case['composante'], $case2['composante']);
+                    echo '<p>' . $case['composante'] . ' ' . $case2['composante'] . '</p>';
                     $nbMurDetruit++;
                 }
             }
             else if($direction == 3 && $y > 0){
                 $case2 = &$lab[$x][$y - 1];
                 if($case['composante'] != $case2['composante']){
+                    echo '<p>' . $case['composante'] . ' ' . $case2['composante'] . '</p>';
                     $case['murO'] = 0;
                     $lab[$x][$y - 1]['murE'] = 0;
+                    echo '<p> MurO' . $case['id'] . ' ' . $case2['id'] . '</p>';
                     fusionnerComposantes($lab, $case['composante'], $case2['composante']);
+                    echo '<p>' . $case['composante'] . ' ' . $case2['composante'] . '</p>';
                     $nbMurDetruit++;
                 }
             }
-            echo '<p>' . $nbMurDetruit . '</p>';
+            afficherComposante($lab);
+            echo "<br>";
         }
         return ['lab' => $lab, 'seed' => $seed];
     }
