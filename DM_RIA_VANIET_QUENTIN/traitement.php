@@ -3,7 +3,6 @@
 
     // importation des tuiles et récupération des variables
 
-    $gen = $_GET["generate"];
     $largeur = $_GET["x"];
     $hauteur = $_GET["y"];
 
@@ -17,13 +16,10 @@
     $labyrinthe = genererLabyrintheVide($largeur, $hauteur);
     $lab_pf = creerLabyrintheParfait($labyrinthe);
     genererDepartArrivee($lab_pf['lab']);
-        
-    if ($gen == "Generer") {
-        echo '<img src=' . creerImageLabyrinthe($lab_pf['lab'], $tab_tuiles) . '/>';
-    } 
-    else {
-        echo "<p>a traiter</p>";
-        console.log("a");
-    }
+    
+    $imagePath = creerImageLabyrinthe($lab_pf['lab'], $tab_tuiles);
+
+    header('Content-Type: image/png');
+    readfile($imagePath);
 
 ?>

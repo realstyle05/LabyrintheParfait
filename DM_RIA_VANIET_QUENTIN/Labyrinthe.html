@@ -6,29 +6,32 @@
         <title>Labyrinthe</title>
     </head>
     <script>
-        function hide(){
-            console.log("hide");
+        function traiter(){
+            console.log("traiter");
             refForm = document.getElementById("form");
+            refDivLab = document.getElementById("lab");
             refForm.style.display = "none";
+            refDivLab.innerHTML = '<img src="traitement.php?x='+document.getElementById("x").value+'&y='+document.getElementById("y").value+'"/>'; 
         }
         
     </script>
 
     <body style="background-color:lightgrey;">
         <div id="form">
-            <form method="get" action="traitement.php">         <!-- get temporaire passage à post après debug-->
                 <label for="x">Largeur du labyrinthe : </label>
-                <input type="number" name="x" id="x" value="1" required min="1" max="30"/>
+                <input type="number" name="x" id="x" value="1" required min="2" max="30"/>
                 <br/>
                 <label for="y">Hauteur du labyrinthe : </label>
-                <input type="number" name="y" id="y" value="1" required min="1" max="30"/>
+                <input type="number" name="y" id="y" value="1" required min="2" max="30"/>
                 <br/>
                 <label for="generate">Generer Labyrinthe</label>
-                <input type="submit" value="Generer" name="generate" onclick="hide()">
+                <input type="button" value="Generer" name="generate" onclick="traiter()">
                 <br/>
                 <label for="generate">Generer Labyrinthe Resolu</label>
-                <input type="submit" value="GenererResolu" name="generate" onclick="hide()">
-            </form>
+                <input type="button" value="GenererResolu" name="generate" onclick="traiter()">
+        </div>
+        <div id="lab">
+
         </div>
     </body>
 </html>

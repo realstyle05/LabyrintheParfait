@@ -244,8 +244,11 @@
                 imagecopy($img, $tuile, $i * imagesx($tuile), $j * imagesy($tuile), 0, 0, imagesx($tuile), imagesy($tuile));
             }
         }
-        imagepng($img, 'labyrinthe.png');
+        $filename = 'labyrinthe.png';
+        imagepng($img, $filename);
         imagedestroy($img);
+    
+        return $filename;
     }
 
     function afficherLabyrintheresolu($lab, $solution){
