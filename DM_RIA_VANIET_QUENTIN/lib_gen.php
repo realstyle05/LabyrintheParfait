@@ -105,7 +105,7 @@
         return ['lab' => $lab, 'seed' => $seed];
     }
 
-    function genererDepartArrivee($lab){
+    function genererDepartArrivee(&$lab){
         // @param lab : labyrinthe
         // cette fonction génère une case de départ et une case d'arrivée dans le labyrinthe
         // Solution temporaire pour avoir une entrée et une sortie
@@ -128,8 +128,8 @@
         // @param tuiles : tableau contenant les tuiles de l'image
         // cette fonction génère une image à partir d'un labyrinthe et de tuiles
 
-        $largeur = count($lab * imagesx($tuiles[0]));
-        $hauteur = count($lab[0] * imagesy($tuiles[0]));
+        $largeur = count($lab) * imagesx($tuiles[0]);
+        $hauteur = count($lab[0]) * imagesy($tuiles[0]);
         $img = imagecreate($largeur, $hauteur);
         //on parcourt le labyrinthe pour afficher les tuiles
         for($i = 0; $i < count($lab); $i++){
@@ -138,7 +138,7 @@
                 
                 //on recherche le nombre de bords sans murs de chaque case 
                 //afin de selectionner la bonne tuile
-                $nbTrou = 4 - $case['murN'] - $case['murS'] - $case['murE'] - $case['murO']
+                $nbTrou = 4 - $case['murN'] - $case['murS'] - $case['murE'] - $case['murO'];
                 //on selectionne la tuile correspondante
                 if($nbTrou == 1){
                     $tuile = $tuiles[2];
@@ -148,7 +148,7 @@
                     //on a deux cas de figure, un coude ou une ligne
                     if(($case['murN'] && $case['murS']) || ($case['murE'] && $case['murO'])){
                         $tuile = $tuiles[4];
-                        $numTuile = 4;
+                        $numTuile = 4;0
                     }
                     else{
                         $tuile = $tuiles[1];
@@ -260,6 +260,7 @@
 
             return imagerotate($tuile, $rotation, 0);
         }
+
 
 
 ?>
