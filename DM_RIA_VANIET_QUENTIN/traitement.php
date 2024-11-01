@@ -19,7 +19,7 @@
     genererDepartArrivee($lab_pf['lab']);
         
     if ($gen == "Generer") {
-        creerImageLabyrinthe($lab_pf['lab'], $tab_tuiles);
+        echo '<img src=' . creerImageLabyrinthe($lab_pf['lab'], $tab_tuiles) . '/>';
     } 
     else {
         echo "<p>a traiter</p>";

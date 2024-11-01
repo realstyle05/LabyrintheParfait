@@ -131,7 +131,7 @@
         $largeur = count($Lab[0]);
         $depart = $Lab[0][0];
         $arrivee = $Lab[$longueur - 1][$largeur - 1];
-        
+
 
 
 
@@ -165,7 +165,7 @@
                     //on a deux cas de figure, un coude ou une ligne
                     if(($case['murN'] && $case['murS']) || ($case['murE'] && $case['murO'])){
                         $tuile = $tuiles[4];
-                        $numTuile = 4;0
+                        $numTuile = 4;
                     }
                     else{
                         $tuile = $tuiles[1];
