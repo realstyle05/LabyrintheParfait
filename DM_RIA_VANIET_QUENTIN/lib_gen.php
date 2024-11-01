@@ -64,7 +64,7 @@
         $largeur = count($lab[0]);
         $nbMur = $longueur * $largeur - 1;
         $nbMurDetruit = 0;
-        while($nbMurDetruit <= $nbMur){
+        while(!verifierComposantes($lab) && $nbMurDetruit < $nbMur){
             $x = rand(0, $longueur - 1);
             $y = rand(0, $largeur - 1);
             $case = &$lab[$x][$y];
@@ -105,6 +105,7 @@
                     $nbMurDetruit++;
                 }
             }
+            echo '<p>' . $nbMurDetruit . '</p>';
         }
         return ['lab' => $lab, 'seed' => $seed];
     }
@@ -145,8 +146,8 @@
         // @param tuiles : tableau contenant les tuiles de l'image
         // cette fonction génère une image à partir d'un labyrinthe et de tuiles
 
-        $largeur = count($lab) * imagesx($tuiles[0]);
-        $hauteur = count($lab[0]) * imagesy($tuiles[0]);
+        $largeur = count($lab[0]) * imagesx($tuiles[0]);
+        $hauteur = count($lab) * imagesy($tuiles[0]);
         $img = imagecreate($largeur, $hauteur);
         //on parcourt le labyrinthe pour afficher les tuiles
         for($i = 0; $i < count($lab); $i++){
@@ -186,13 +187,13 @@
                         $rotation = 180;
                     }
                     else if($case['murE'] == 0){
-                        $rotation = 270;
+                        $rotation = 90;
                     }
                     else if($case['murS'] == 0){
                         $rotation = 0;
                     }
                     else if($case['murO'] == 0){
-                        $rotation = 90;
+                        $rotation = 270;
                     }
                 }
                 else if($numTuile == 1){
@@ -201,12 +202,12 @@
                             $rotation = 180;
                         }
                         else if($case['murO'] == 0){
-                            $rotation = 90;
+                            $rotation = 270;
                         }
                     }
                     else if($case['murS'] == 0){
                         if($case['murE'] == 0){
-                            $rotation = 270;
+                            $rotation = 90;
                         }
                         else if($case['murO'] == 0){
                             $rotation = 0;
@@ -218,18 +219,18 @@
                         $rotation = 0;
                     }
                     else if ($case['murE'] == 0 && $case['murO'] == 0) {
-                        $rotation = 90;
+                        $rotation = 270;
                     }
                 }
                 else if($numTuile == 3){
                     if($case['murN']){
-                        $rotation = 270;
+                        $rotation = 90;
                     }
                     else if($case['murE']){
                         $rotation = 0;
                     }
                     else if($case['murS']){
-                        $rotation = 90;
+                        $rotation = 270;
                     }
                     else if($case['murO']){
                         $rotation = 180;
@@ -241,7 +242,7 @@
                 //on tourne la tuile
                 $tuile = rotationTuile($tuile, $rotation);
                 //on colle la tuile sur l'image
-                imagecopy($img, $tuile, $i * imagesx($tuile), $j * imagesy($tuile), 0, 0, imagesx($tuile), imagesy($tuile));
+                imagecopy($img, $tuile, $j * imagesx($tuile), $i * imagesy($tuile), 0, 0, imagesx($tuile), imagesy($tuile));
             }
         }
         imagepng($img, "imageGenere/labyrinthe.png");
@@ -278,6 +279,46 @@
             return imagerotate($tuile, $rotation, 0);
         }
 
+        //fonction de debug
 
+        function afficherMatriceLab($lab){
+            // @param lab : labyrinthe
+            // cette fonction affiche le labyrinthe
+
+            foreach($lab as $ligne){
+                foreach($ligne as $case){
+                    echo $case['murN'] . " ";
+                    echo $case['murS'] . " ";
+                    echo $case['murE'] . " ";
+                    echo $case['murO'] . " ";
+                    echo " | ";
+                }
+                echo "<br>";
+            }
+        }
+
+        function afficherComposante($lab){
+            // @param lab : labyrinthe
+            // cette fonction affiche les composantes du labyrinthe
+
+            foreach($lab as $ligne){
+                foreach($ligne as $case){
+                    echo $case['composante'] . " ";
+                }
+                echo "<br>";
+            }
+        }
+
+        function verifierComposantes($lab) {
+            $composanteInitiale = $lab[0][0]['composante'];
+            for ($i = 0; $i < count($lab); $i++) {
+                for ($j = 0; $j < count($lab[0]); $j++) {
+                    if ($lab[$i][$j]['composante'] != $composanteInitiale) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
 ?>
