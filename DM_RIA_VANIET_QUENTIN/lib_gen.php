@@ -16,7 +16,7 @@
         return $case;
     }
 
-    function fusionnerComposantes($lab, $comp1, $comp2){
+    function fusionnerComposantes(&$lab, &$comp1, &$comp2){
         // @param lab : labyrinthe
         // @param comp1 : composante 1
         // @param comp2 : composante 2
@@ -140,7 +140,7 @@
 
     // Fonctions d'affichage du labyrinthe
 
-    function creerImageLabyrinthe($lab, $tuiles){
+    function creerImageLabyrinthe($lab, $tuiles, $nomFichier = "labyrinthe"){
         // @param lab : labyrinthe
         // @param tuiles : tableau contenant les tuiles de l'image
         // cette fonction génère une image à partir d'un labyrinthe et de tuiles
@@ -244,11 +244,10 @@
                 imagecopy($img, $tuile, $i * imagesx($tuile), $j * imagesy($tuile), 0, 0, imagesx($tuile), imagesy($tuile));
             }
         }
-        $filename = 'labyrinthe.png';
-        imagepng($img, $filename);
+        $NomFicExt = $nomFichier . ".png";
+        echo $NomFicExt;
+        imagepng($img, "imageGenere/" . $NomFicExt);
         imagedestroy($img);
-    
-        return $filename;
     }
 
     function afficherLabyrintheresolu($lab, $solution){
