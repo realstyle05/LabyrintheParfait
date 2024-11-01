@@ -3,19 +3,26 @@
 
     // importation des tuiles et récupération des variables
 
+    $gen = $_GET["generate"];
     $largeur = $_GET["x"];
     $hauteur = $_GET["y"];
+
+    // traitement des tuiles
+
     $tuiles = imagecreatefrompng("img_Tiles/2D_Maze_Tiles_Red.png");
+    $tab_tuiles = sectionnerTuile($tuiles);
 
-    // handle failed importation case
+    // création du labyrinthe
 
-    if (!$tuiles) echo "Import failed";
-    else {
-        $tab_tuiles = sectionnerTuile($tuiles);
-        $labyrinthe = genererLabyrintheVide($largeur, $hauteur);
-        $lab_pf = creerLabyrintheParfait($labyrinthe);
-        creerImageLabyrinthe($lab_pf, $tab_tuiles);
+    $labyrinthe = genererLabyrintheVide($largeur, $hauteur);
+    $lab_pf = creerLabyrintheParfait($labyrinthe);
+    genererDepartArrivee($lab_pf['lab']);
         
-
+    if ($gen == "Generer") {
+        creerImageLabyrinthe($lab_pf, $tab_tuiles);
+    } else {
+        echo "<p>a traiter</p>";
+        console.log("a");
     }
+
 ?>
