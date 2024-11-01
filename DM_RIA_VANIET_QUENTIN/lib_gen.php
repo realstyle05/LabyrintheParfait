@@ -73,6 +73,7 @@
                 $case2 = &$lab[$x - 1][$y];
                 if($case['composante'] != $case2['composante']){
                     $case['murN'] = 0;
+                    $lab[$x - 1][$y]['murS'] = 0;
                     fusionnerComposantes($lab, $case['composante'], $case2['composante']);
                     $nbMurDetruit++;
                 }
@@ -81,6 +82,7 @@
                 $case2 = &$lab[$x + 1][$y];
                 if($case['composante'] != $case2['composante']){
                     $case['murS'] = 0;
+                    $lab[$x + 1][$y]['murN'] = 0;
                     fusionnerComposantes($lab, $case['composante'], $case2['composante']);
                     $nbMurDetruit++;
                 }
@@ -89,6 +91,7 @@
                 $case2 = &$lab[$x][$y + 1];
                 if($case['composante'] != $case2['composante']){
                     $case['murE'] = 0;
+                    $lab[$x][$y + 1]['murO'] = 0;
                     fusionnerComposantes($lab, $case['composante'], $case2['composante']);
                     $nbMurDetruit++;
                 }
@@ -97,6 +100,7 @@
                 $case2 = &$lab[$x][$y - 1];
                 if($case['composante'] != $case2['composante']){
                     $case['murO'] = 0;
+                    $lab[$x][$y - 1]['murE'] = 0;
                     fusionnerComposantes($lab, $case['composante'], $case2['composante']);
                     $nbMurDetruit++;
                 }
@@ -118,6 +122,19 @@
     // Fonctions de resolution du labyrinthe
 
     function resoudreLabyrinthe($Lab){
+        // @param lab : labyrinthe
+        // @return solution : retourne un tableau avec les coordonnées des cases appartenant à la solution
+        // cette fonction résout un labyrinthe parfait
+
+        $solution = array();
+        $longueur = count($Lab);
+        $largeur = count($Lab[0]);
+        $depart = $Lab[0][0];
+        $arrivee = $Lab[$longueur - 1][$largeur - 1];
+        
+
+
+
         
     }
 

@@ -9,7 +9,7 @@
 
     // traitement des tuiles
 
-    $tuiles = imagecreatefrompng("img_Tiles/2D_Maze_Tiles_Red.png");
+    $tuiles = imagecreatefrompng("img_Tiles/2D_Maze_Tiles_White.png");
     $tab_tuiles = sectionnerTuile($tuiles);
 
     // création du labyrinthe
@@ -20,7 +20,8 @@
         
     if ($gen == "Generer") {
         creerImageLabyrinthe($lab_pf['lab'], $tab_tuiles);
-    } else {
+    } 
+    else {
         echo "<p>a traiter</p>";
         console.log("a");
     }
