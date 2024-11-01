@@ -6,7 +6,6 @@
     $largeur = $_GET["x"];
     $hauteur = $_GET["y"];
     $action = $_GET["generate"];
-    $nomFichier = $_GET["nomImg"];
     // traitement des tuiles
 
     $tuiles = imagecreatefrompng("img_Tiles/2D_Maze_Tiles_White.png");
@@ -18,9 +17,9 @@
         $labyrinthe = genererLabyrintheVide($largeur, $hauteur);
         $lab_pf = creerLabyrintheParfait($labyrinthe);
         genererDepartArrivee($lab_pf['lab']);
-        creerImageLabyrinthe($lab_pf['lab'], $tab_tuiles, $nomFichier);
+        creerImageLabyrinthe($lab_pf['lab'], $tab_tuiles);
     }
 
-    echo "<img src='imageGenere/" . $nomFichier . ".png' alt='labyrinthe' />";
+    echo "<img src='imageGenere/labyrinthe.png' alt='labyrinthe'/>";
 
 ?>

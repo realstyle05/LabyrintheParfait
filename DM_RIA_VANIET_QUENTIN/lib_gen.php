@@ -140,7 +140,7 @@
 
     // Fonctions d'affichage du labyrinthe
 
-    function creerImageLabyrinthe($lab, $tuiles, $nomFichier = "labyrinthe"){
+    function creerImageLabyrinthe($lab, $tuiles){
         // @param lab : labyrinthe
         // @param tuiles : tableau contenant les tuiles de l'image
         // cette fonction génère une image à partir d'un labyrinthe et de tuiles
@@ -244,9 +244,7 @@
                 imagecopy($img, $tuile, $i * imagesx($tuile), $j * imagesy($tuile), 0, 0, imagesx($tuile), imagesy($tuile));
             }
         }
-        $NomFicExt = $nomFichier . ".png";
-        echo $NomFicExt;
-        imagepng($img, "imageGenere/" . $NomFicExt);
+        imagepng($img, "imageGenere/labyrinthe.png");
         imagedestroy($img);
     }
 
