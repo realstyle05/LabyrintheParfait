@@ -19,14 +19,16 @@
         <div id="form">
             <form method="get" action="traitement.php">
                 <label for="x">Largeur du labyrinthe : </label>
-                <input type="number" name="x" id="x" required/>
+                <input type="number" name="x" id="x" required min="1" max="30"/>
                 <br/>
                 <label for="y">Hauteur du labyrinthe : </label>
-                <input type="number" name="y" id="y" required/>
+                <input type="number" name="y" id="y" required min="1" max="30"/>
                 <br/>
-                <input type="submit" value="Generer" onclick="hide()">Generer Labyrinthe</input>
+                <label for="generate">Generer Labyrinthe</label>
+                <input type="submit" value="Generer" name="generate" onclick="hide()">
                 <br/>
-                <input type="submit" value="GenererResolu" onclick="hide()">Generer Labyrinthe Resolu</input>
+                <label for="gen_res">Generer Labyrinthe Resolu</label>
+                <input type="submit" value="GenererResolu" onclick="hide()">
             </form>
         </div>
         <div id="lab">

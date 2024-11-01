@@ -32,7 +32,7 @@
     }
 
     function genererLabyrintheVide($x, $y){
-        // @param x : nombre de cases en ••••largeur
+        // @param x : nombre de cases en largeur
         // @param y : nombre de cases en hauteur
         // @return labyrinthe : retourne un tableau à deux dimensions représentant le labyrinthe vide
         // cette fonction génère un labyrinthe de cases avec des murs de partout
