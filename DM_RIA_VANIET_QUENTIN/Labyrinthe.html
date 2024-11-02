@@ -41,6 +41,14 @@
             display: inline-block;
             visibility: hidden;
         }
+        #export{
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            background-color: white;
+            display: inline-block;
+            visibility: hidden;
+        }
         img{
             width: 400px;
         }
@@ -64,8 +72,17 @@
                 refLab = document.getElementById("lab");
                 refExport = document.getElementById("export");
                 refLab.innerHTML = "<img src='imageGenere/labyrinthe.png' alt='labyrinthe'/><br/><p> graine du labyrinthe : " + params.seed + "</p>";
-                refExport.innerHTML = "<form action='traitement.php' method='get'><input type='submit' value='Exporter' name='generate'></form>"
+                refExport.innerHTML = "<form action='traitement.php' method='get'>" +
+                    "<label for='hauteur'>Hauteur de l'image : </label>" +
+                    "<input type='number' name='hauteur' name='hauteur' value='200' required min='200'/>" +
+                    "<br/>" +
+                    "<label for='largeur'>Largeur de l'image : </label>" +
+                    "<input type='number' name='largeur' name='largeur' value='200' required min='200'/>" +
+                    "<br/>" +
+                    "<input type='submit' value='Exporter' name='generate'>" + 
+                    "</form>";
                 refLab.style.visibility = "visible";
+                refExport.style.visibility = "visible";
             }
         }
 

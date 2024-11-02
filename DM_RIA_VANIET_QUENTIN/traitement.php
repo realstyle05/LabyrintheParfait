@@ -27,9 +27,12 @@
         header("Location: Labyrinthe.html?generate=$action&seed=$lab_pf[seed]");
     }
     else if($action == "Exporter"){
-        $name = 'imageGenere/labyrinthe.png';
+        $newHauteur = $_GET["hauteur"];
+        $newLargeur = $_GET["largeur"];
+        redimensionnerImage("imageGenere/labyrinthe.png", $newLargeur, $newHauteur, "imageGenere/Labyrinthe.png");
+        $name = 'imageGenere/Labyrinthe.png';
         header('Content-Type: application/PNG');
-        header('Content-Disposition: attachment; filename="labyrinthe.png"');
+        header('Content-Disposition: attachment; filename="Labyrinthe.png"');
         header('Content-Length: ' . filesize($name));
         readfile($name);
         //header('Location : Labyrinthe.html');

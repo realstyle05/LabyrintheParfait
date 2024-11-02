@@ -300,4 +300,35 @@
             return true;
         }
 
+        //fonction de redimentionnement de l'image
+        
+        function redimensionnerImage($sourceFile, $largeur, $hauteur, $outputFile){
+            // @param sourceFile : chemin de l'image source
+            // @param largeur : nouvelle largeur de l'image
+            // @param hauteur : nouvelle hauteur de l'image
+            // @param outputFile : chemin du fichier de sortie
+            // cette fonction redimensionne une image existante aux dimensions spécifiées
+        
+            // Charger l'image source
+            $sourceImage = imagecreatefrompng($sourceFile);
+        
+            // Obtenir les dimensions de l'image source
+            $largeurSource = imagesx($sourceImage);
+            $hauteurSource = imagesy($sourceImage);
+        
+            // Créer une nouvelle image avec les dimensions spécifiées
+            $imageRedimensionnee = imagecreatetruecolor($largeur, $hauteur);
+        
+            // Redimensionner l'image
+            imagecopyresampled($imageRedimensionnee, $sourceImage, 0, 0, 0, 0, $largeur, $hauteur, $largeurSource, $hauteurSource);
+        
+            // Sauvegarder l'image redimensionnée
+            imagepng($imageRedimensionnee, $outputFile);
+        
+            // Libérer la mémoire
+            imagedestroy($sourceImage);
+            imagedestroy($imageRedimensionnee);
+        }
+        
+
 ?>
