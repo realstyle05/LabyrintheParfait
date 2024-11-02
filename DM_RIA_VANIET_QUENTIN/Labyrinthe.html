@@ -41,6 +41,9 @@
             display: inline-block;
             visibility: hidden;
         }
+        img{
+            width: 400px;
+        }
     </style>
     <script>
         function getParams() {
@@ -59,7 +62,9 @@
             seed = params.seed;
             if (params.generate === "Generer") {
                 refLab = document.getElementById("lab");
+                refExport = document.getElementById("export");
                 refLab.innerHTML = "<img src='imageGenere/labyrinthe.png' alt='labyrinthe'/><br/><p> graine du labyrinthe : " + params.seed + "</p>";
+                refExport.innerHTML = "<form action='traitement.php' method='get'><input type='submit' value='Exporter' name='generate'></form>"
                 refLab.style.visibility = "visible";
             }
         }
@@ -115,6 +120,8 @@
         </div>
         <div id="container">
             <div id="lab">
+            </div>
+            <div id="export">
             </div>
         </div>
     </body>
