@@ -5,7 +5,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Labyrinthe</title>
     </head>
+    <style>
+        #form{
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            background-color: white;
+            width: 200px;
+            display: inline-block;
+        }
+        #lab{
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            background-color: white;
+            display: inline-block;
+            visibility: hidden;
+        }
+    </style>
+    <script>
+        function getParams() {
+            url = window.location.search;
+            params = new URLSearchParams(url);
+            generate = params.get("generate");
+            return {generate};
+        }
 
+        function afficherLabyrinthe() {
+            params = getParams();
+            if (params.generate === "Generer") {
+                refLab = document.getElementById("lab");
+                refLab.innerHTML = "<img src='imageGenere/labyrinthe.png' alt='labyrinthe'/>";
+                refLab.style.visibility = "visible";
+            }
+        }
+
+        window.onload = afficherLabyrinthe;
+    </script>
     <body style="background-color:lightgrey;">
         <div id="form">
             <form action="traitement.php" method="get">
@@ -15,15 +51,17 @@
                 <label for="y">Largeur du labyrinthe : </label>
                 <input type="number" name="y" id="y" value="2" required min="2"/>
                 <br/>
-                <label for="generate">Generer Labyrinthe</label>
-                <input type="submit" value="Generer" name="generate">
+                <label for="generate">Generer Labyrinthe : </label>
                 <br/>
-                <label for="generate">Generer Labyrinthe Resolu</label>
+                <input type="submit" value="Generer" name="generate" onclick="afficherLabyrinthe()">
+                <br/>
+                <label for="generate">Generer Labyrinthe Resolu : </label>
+                <br/>
                 <input type="submit" value="GenererResolu" name="generate">
             </form>
         </div>
         <div id="lab">
-
+            <img src='imageGenere/labyrinthe.png' alt='labyrinthe'/>
         </div>
     </body>
 </html>
