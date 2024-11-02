@@ -6,21 +6,22 @@
     $largeur = $_GET["x"];
     $hauteur = $_GET["y"];
     $action = $_GET["generate"];
-    
+    $seed = isset($_GET["seed"]) && $_GET["seed"] !== '' ? $_GET["seed"] : null;
+    $tuiles = $_GET["tiles"];
     // traitement des tuiles
-
-    $tuiles = imagecreatefrompng("img_Tiles/2D_Maze_Tiles_White.png");
+    $tuiles = "img_Tiles/".$tuiles;
+    $tuiles = imagecreatefrompng($tuiles);
     $tab_tuiles = sectionnerTuile($tuiles);
 
     // création du labyrinthe
     if($action == "Generer"){
         $labyrinthe = genererLabyrintheVide($largeur, $hauteur);
-        $lab_pf = creerLabyrintheParfait($labyrinthe);
+        $lab_pf = creerLabyrintheParfait($labyrinthe, $seed);
         genererDepartArrivee($lab_pf['lab']);
         creerImageLabyrinthe($lab_pf['lab'], $tab_tuiles);
 
     }
     // Redirection vers Labyrinthe.html
-    header("Location: Labyrinthe.html?generate=$action");
+    header("Location: Labyrinthe.html?generate=$action&seed=$lab_pf[seed]");
     exit();
 ?>

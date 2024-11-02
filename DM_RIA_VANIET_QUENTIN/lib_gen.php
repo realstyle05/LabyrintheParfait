@@ -119,24 +119,6 @@
         $lab[0][0]['murN'] = 0;
         $lab[$longueur - 1][$largeur - 1]['murS'] = 0;
     }
-    // Fonctions de resolution du labyrinthe
-
-    function resoudreLabyrinthe($Lab){
-        // @param lab : labyrinthe
-        // @return solution : retourne un tableau avec les coordonnées des cases appartenant à la solution
-        // cette fonction résout un labyrinthe parfait
-
-        $solution = array();
-        $longueur = count($Lab);
-        $largeur = count($Lab[0]);
-        $depart = $Lab[0][0];
-        $arrivee = $Lab[$longueur - 1][$largeur - 1];
-
-
-
-
-        
-    }
 
     // Fonctions d'affichage du labyrinthe
 
@@ -246,10 +228,6 @@
         }
         imagepng($img, "imageGenere/labyrinthe.png");
         imagedestroy($img);
-    }
-
-    function afficherLabyrintheresolu($lab, $solution){
-
     }
 
     function sectionnerTuile($img){
